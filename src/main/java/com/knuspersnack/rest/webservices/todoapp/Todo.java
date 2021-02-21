@@ -1,15 +1,17 @@
 package com.knuspersnack.rest.webservices.todoapp;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class Todo {
     private long id;
     private String username;
     private String description;
-    private Date targetDate;
+    private LocalDate targetDate;
     private boolean isDone;
 
-    public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
+    public Todo(long id, String username, String description, LocalDate targetDate, boolean isDone) {
         this.id = id;
         this.username = username;
         this.description = description;
@@ -41,11 +43,11 @@ public class Todo {
         this.description = description;
     }
 
-    public Date getTargetDate() {
+    public LocalDate getTargetDate() {
         return targetDate;
     }
 
-    public void setTargetDate(Date targetDate) {
+    public void setTargetDate(LocalDate targetDate) {
         this.targetDate = targetDate;
     }
 
@@ -55,5 +57,18 @@ public class Todo {
 
     public void setDone(boolean done) {
         isDone = done;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Todo todo = (Todo) o;
+        return id == todo.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -1,10 +1,8 @@
 package com.knuspersnack.rest.webservices.todoapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,9 +13,17 @@ public class ToDoResource {
     @Autowired
     private ToDoService toDoService;
 
-    @GetMapping(path="/users/{username}/todos")
+    @GetMapping("/users/{username}/todos")
     public List<Todo> getAllTodos(@PathVariable String username) {
         return toDoService.findAll();
+    }
+
+    @DeleteMapping("/users/{username}/todos/{id}")
+    public ResponseEntity<String> deleteTodo(@PathVariable String username, @PathVariable long id) {
+        boolean isSuccessful = toDoService.deleteById(id);
+        return (isSuccessful)
+                ? ResponseEntity.ok("Successfully deleted todo with id " + id)
+                : ResponseEntity.notFound().build();
     }
 
 }
