@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ToDoService {
+public class TodoDataService {
 
     private static List<Todo> todos = new ArrayList();
     private static int idCounter = 0;
@@ -25,19 +25,30 @@ public class ToDoService {
 
     public boolean deleteById(long id) {
         Todo todo = findById(id);
-        if(todo != null) {
+        if (todo != null) {
             return todos.remove(todo);
         }
         return false;
     }
 
     public Todo findById(long id) {
-        for(Todo todo:todos) {
-            if(todo.getId() == id) {
+        for (Todo todo : todos) {
+            if (todo.getId() == id) {
                 return todo;
             }
         }
         return null;
+    }
+
+    public Todo save(Todo todo) {
+        if (todo.getId() == -1) {
+            todo.setId(++idCounter);
+            todos.add(todo);
+        } else {
+            deleteById(todo.getId());
+            todos.add(todo);
+        }
+        return todo;
     }
 
 }
