@@ -1,4 +1,4 @@
-package com.knuspersnack.rest.webservices.basic.auth;
+package com.knuspersnack.rest.removed.basic.auth;
 
 public class AuthenticationBean {
     private String authMessage;
